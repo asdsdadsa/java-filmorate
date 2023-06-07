@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 public class User {
-    private Integer id;                                          // !!! int-Integer
+    private Integer id;                                          // int-Integer
     @Email
     private String email;
     @NotBlank
@@ -19,9 +19,7 @@ public class User {
     private String name;
     @PastOrPresent
     private LocalDate birthday;
-    private Set<Integer> friends = new HashSet<>();              // !!! new HashSet<>()
+    private Set<Integer> friends = new HashSet<>();              // new HashSet<>()
 }
-// Привет, проверил ТЗ через тесты Postman и всё прошло успешно. В ТЗ другие заметки я себе написал.
-// По поводу тестов, в задании нет указания их делать и я не особо понимаю как. В ТЗ java-kanban был пример в теории, а тут нет.
-// Я могу погуглить и сделать по примеру. Но, может быть, потом покажут, как делать (в следующих темах).
-// Если это важно и не объяснят, то могу попробовать сделать.
+// Добавил delete (в описании ТЗ нет в таблице delete в Controller) в Storage (ты писал про него) и добавил тесты (как понял).
+// С @FieldDefaults разобрался (надо добавить @FieldDefaults(level = AccessLevel.PRIVATE) лучше привыкать делать всё так?

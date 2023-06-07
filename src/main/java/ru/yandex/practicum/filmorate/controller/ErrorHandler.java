@@ -12,7 +12,7 @@ import ru.yandex.practicum.filmorate.exception.ValidationException;
 public class ErrorHandler {
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)      // !!!
+    @ResponseStatus(HttpStatus.BAD_REQUEST)      // для пользователя
     public ErrorResponse handleValidationException(final ValidationException e) {
         return new ErrorResponse(e.getMessage());
     }

@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.storage;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
     private Map<Integer, Film> films = new HashMap<>();
@@ -57,5 +59,13 @@ public class InMemoryFilmStorage implements FilmStorage {
             throw new NotFoundException("Такого id " + id + " фильма нет.");
         }
         return films.get(id);
+    }
+
+    @Override
+    public void deleteFilm(Integer id) {
+        if (!films.containsKey(id)) {
+            throw new NotFoundException("Такого id " + id + " фильма нет чтобы удалить.");
+        }
+        films.remove(id);
     }
 }

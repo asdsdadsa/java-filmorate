@@ -36,6 +36,7 @@ public class InMemoryUserStorage implements UserStorage {
             user.setName(user.getLogin());
         }
         users.put(user.getId(), user);
+
         return user;
     }
 
@@ -64,5 +65,13 @@ public class InMemoryUserStorage implements UserStorage {
             throw new NotFoundException("Такого id " + id + " пользователя нет.");
         }
         return users.get(id);
+    }
+
+    @Override
+    public void deleteUser(Integer id) {
+        if (!users.containsKey(id)) {
+            throw new NotFoundException("Такого id " + id + " пользователя нет чтобы удалить.");
+        }
+        users.remove(id);
     }
 }

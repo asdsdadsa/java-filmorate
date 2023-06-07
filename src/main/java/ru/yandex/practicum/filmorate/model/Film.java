@@ -21,6 +21,6 @@ public class Film {
     @NotNull
     private LocalDate releaseDate;
     @Positive
-    private int duration;
+    private Integer duration;
     private Set<Integer> likes = new HashSet<>();
 }

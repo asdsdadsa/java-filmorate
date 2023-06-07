@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private UserStorage userStorage;
+    private final UserStorage userStorage;
 
     @Autowired
     public UserService(UserStorage userStorage) {

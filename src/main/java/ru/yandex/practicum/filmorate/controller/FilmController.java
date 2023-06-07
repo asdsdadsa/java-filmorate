@@ -17,9 +17,9 @@ import java.util.List;
 @RequestMapping("/films")
 public class FilmController {
 
-    FilmStorage filmStorage;
+    private final FilmStorage filmStorage;
 
-    FilmService filmService;
+    private final FilmService filmService;
 
     @Autowired
     public FilmController(FilmStorage filmStorage, FilmService filmService) {
@@ -48,7 +48,7 @@ public class FilmController {
 
     @GetMapping("/{id}")
     public Film filmById(@PathVariable Integer id) {
-        log.info("Фильм по id " + id + " получен.");
+        log.info("Фильм по id " + id + " получен.");                        //логи
         return filmStorage.filmById(id);
     }
 
@@ -65,7 +65,7 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public List<Film> getPopularFilms(@RequestParam(defaultValue = "10") Integer count) {          //defaultTValue!!!
+    public List<Film> getPopularFilms(@RequestParam(defaultValue = "10") Integer count) {          //defaultTValue
         log.info("Показан список популярных фильмов.");
         return filmService.getPopularFilms(count);
     }
