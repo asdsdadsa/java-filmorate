@@ -31,5 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
 *.db
 db/*
+
+src/main/resources/static/
