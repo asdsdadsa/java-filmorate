@@ -1,63 +1,72 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+
 
 @Slf4j
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-    private Map<Integer, Film> films = new HashMap<>();
-    private int idFilm = 1;
+
+    private final FilmStorage filmStorage;
+
+    private final FilmService filmService;
+
+    @Autowired
+    public FilmController(FilmStorage filmStorage, FilmService filmService) {
+        this.filmStorage = filmStorage;
+        this.filmService = filmService;
+    }
+
 
     @GetMapping
     public Collection<Film> getFilms() {
         log.info("Показан список фильмов.");
-        return films.values();
+        return filmStorage.getFilms();
     }
 
     @PostMapping
     public Film addFilm(@Valid @RequestBody Film film) {
-        if (film.getName().isBlank()) {
-            throw new ValidationException("Название не может быть пустым.");
-        } else if (film.getDescription().length() > 200) {
-            throw new ValidationException("Максимальная длина описания — 200 символов.");
-        } else if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            throw new ValidationException("дата релиза — не раньше 28 декабря 1895 года.");
-        } else if (film.getDuration() < 0) {
-            throw new ValidationException("Продолжительность фильма должна быть положительной.");
-        } else {
-            film.setId(idFilm++);
-            films.put(film.getId(), film);
-            log.info("Фильм добавлен, " + film);
-            return film;
-        }
+        log.info("Фильм добавлен, " + film);
+        return filmStorage.addFilm(film);
     }
 
     @PutMapping
     public Film updateFilm(@Valid @RequestBody Film film) {
-        if (film.getName().isBlank()) {
-            throw new ValidationException("Название не может быть пустым.");
-        } else if (film.getDescription().length() > 200) {
-            throw new ValidationException("Максимальная длина описания — 200 символов.");
-        } else if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            throw new ValidationException("дата релиза — не раньше 28 декабря 1895 года.");
-        } else if (film.getDuration() < 0) {
-            throw new ValidationException("Продолжительность фильма должна быть положительной.");
-        } else if (!films.containsKey(film.getId())) {
-            throw new ValidationException("Такого id фильма нет.");
-        } else {
-            films.put(film.getId(), film);
-            log.info("Фильм обновлен, " + film);
-            return film;
-        }
+        log.info("Фильм обновлен, " + film);
+        return filmStorage.updateFilm(film);
+    }
+
+    @GetMapping("/{id}")
+    public Film filmById(@PathVariable Integer id) {
+        log.info("Фильм по id " + id + " получен.");                        //логи
+        return filmStorage.filmById(id);
+    }
+
+    @PutMapping("/{id}/like/{userId}")
+    public void addLike(@PathVariable Integer id, @PathVariable Integer userId) {
+        log.info("Пользователь с id " + userId + " лайкнул фильм с id " + id);
+        filmService.addLike(id, userId);
+    }
+
+    @DeleteMapping("/{id}/like/{userId}")
+    public void deleteLike(@PathVariable Integer id, @PathVariable Integer userId) {
+        log.info("Пользователь с id " + userId + " удалил лайк с фильма с id " + id);
+        filmService.deleteLike(id, userId);
+    }
+
+    @GetMapping("/popular")
+    public List<Film> getPopularFilms(@RequestParam(defaultValue = "10") Integer count) {          //defaultTValue
+        log.info("Показан список популярных фильмов.");
+        return filmService.getPopularFilms(count);
     }
 }

@@ -7,17 +7,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
-public class Film {                        //Привет, это ТЗ оказалось несложным (если я всё верно понял). Даже помощь не потребовалась (только теория спринта).
-    private int id;                        // Проверял через тесты в Postman (показывали в вебинаре как проверить).
-    @NotBlank                              // Могу написать тесты сам если это хорошая практика.
-    private String name;                   // Доп задание сделал.
+public class Film {
+    private Integer id;
+    @NotBlank
+    private String name;
     @NotBlank
     @Size(max = 200)
     private String description;
     @NotNull
     private LocalDate releaseDate;
     @Positive
-    private int duration;
+    private Integer duration;
+    private Set<Integer> likes = new HashSet<>();
 }
