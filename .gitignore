@@ -35,5 +35,6 @@ build/
 
 *.db
 db/*
-
-src/main/resources/static/
+/.github/
+/.github/workflows/
+/.github/workflows/api-tests.yml
