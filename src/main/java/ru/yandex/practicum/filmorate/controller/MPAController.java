@@ -30,7 +30,7 @@ public class MPAController {
     }
 
     @GetMapping("{id}")
-    public MPA MPAById(@PathVariable Integer id) {
-        return mpaStorage.MPAById(id);
+    public MPA mpaById(@PathVariable Integer id)     {
+        return mpaStorage.mpaById(id);
     }
 }

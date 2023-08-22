@@ -7,5 +7,5 @@ import java.util.Collection;
 public interface MPAStorage {
     Collection<MPA> getMPA();
 
-    MPA MPAById(Integer id);
+    MPA mpaById(Integer id);
 }

@@ -29,7 +29,7 @@ public class MPADbStorage implements MPAStorage {
     }
 
     @Override
-    public MPA MPAById(Integer id) {
+    public MPA mpaById(Integer id) {
         final String sqlQuery = "SELECT * FROM MPA WHERE MPA_id=?";
 
         final List<MPA> MPAs = jdbcTemplate.query(sqlQuery, this::mapRowToMPA, id);
