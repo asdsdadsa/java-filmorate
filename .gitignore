@@ -32,8 +32,17 @@ build/
 ### VS Code ###
 .vscode/
 
-*.db
-db/*
-
-./HELP.md
-./checkstyle.xml
+api-tests.yml
+checkstyle.xml
+*.class
+*.jar
+mvn
+.DS_Store
+.idea/
+.iws
+.iml
+.ipr
+.db
+.log
+out/
+target/
