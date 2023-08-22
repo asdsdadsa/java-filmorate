@@ -11,7 +11,6 @@ HELP.md
 hs_err_pid*
 out/
 target/
-target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -46,3 +45,9 @@ build/
 
 *.db
 db/*
+
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
+src/main/resources/static/
+src/main/resources/.DS_Store
