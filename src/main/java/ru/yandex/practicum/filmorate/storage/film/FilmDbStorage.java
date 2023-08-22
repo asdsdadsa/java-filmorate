@@ -80,7 +80,7 @@ public class FilmDbStorage implements FilmStorage {
         Integer newId = keyHolder.getKey().intValue();
         film.setId(newId);
 
-        if (film.getGenres() != null) {
+        if (film.getGenres() != null && !film.getGenres().isEmpty()) {
             for (Genre genre : film.getGenres()) {
                 genreStorage.addGenreForFilm(newId, genre.getId());
             }

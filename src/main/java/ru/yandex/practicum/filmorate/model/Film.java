@@ -1,7 +1,9 @@
 package ru.yandex.practicum.filmorate.model;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,17 +14,18 @@ import java.util.Set;
 
 @Data
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)       // private
 public class Film {
-    private Integer id;
-    @NotBlank
-    private String name;
-    @NotBlank
+    Integer id;                 // Спасибо, в фильмах сделал @FieldDefaults чтобы позже использовать.
+    @NotBlank                   // В остальных объектах оставил как было, чтобы потом, если буду смотреть для примера проект, не путаться.
+    String name;                // Логи перенес в классы сервиса и доделал по рекомендациям.
+    @NotBlank                   // Доделал проверку на пустой список в классе FilmDbStorage.
     @Size(max = 200)
-    private String description;
+    String description;
     @NotNull
-    private LocalDate releaseDate;
+    LocalDate releaseDate;
     @Positive
-    private Integer duration;
-    private MPA mpa;
-    private Set<Genre> genres;
+    Integer duration;
+    MPA mpa;
+    Set<Genre> genres;
 }
